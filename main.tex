@@ -14,7 +14,7 @@ Dhake $\vert$ 190070048}
 \maketitle
 \tableofcontents
 \section{Introduction}
-Moustique is updated version of Mosquito stream cipher. Moustique is a Self-synchronizing stream cipher which was broken in the final round of the eStream project. Here we present it's reduced size analog\footnote{Also available at \url{https://github.com/paramrathour/Moustique-Cipher}}.
+Moustique\cite{v2} is updated version of Mosquito\cite{v3} stream cipher. Moustique is a Self-synchronizing stream cipher which was broken in the final round of the eStream project. Here we present the reduced size analog of \cite{v2}\footnote{Our project is also available at \url{https://github.com/paramrathour/Moustique-Cipher}}.
 \section{Encryption and Decryption}
 For encryption, each plaintext bit is added (over GF(2)) to a keystream bit to get ciphertext bit.
 \begin{equation}
@@ -33,8 +33,8 @@ For this assignment as our interest is in generating keystream bit, we focus our
 In our reduced version of this cipher function, we take the key and IV size as 48 bits (96 in original paper) and we use 4 register sizes of 64, 53 (2 registers), 12 and 3 bits using up a total 185 states compared to 408 in original.
 
 \begin{itemize}
-    \item The 64 bit register called as conditional complementing shift register (CCSR) is the only 1-indexed register. Also, it is organized a bit differently, CCSR(x) is written as $q_{i,j}$ and the pair of $i,j$ uniquely maps to $x \in \{1,2,\ldots,64\}$ given in Table \ref{tab:ccsr}. ($i$ indices are given vertically, $j$'s are horizontal and the corresponding cell gives $x$ in CCSR)
-    \item There are 2 53 bit registers $a_{11}$ and $a_{12}$ collectively called as $a_{1}$
+    \item The 64 bit register called as conditional complementing shift register (CCSR) is the only 1-indexed register, organized bit differently. CCSR(x) is written as $q{(i,j)}$ and the pair of $i,j$ uniquely maps to $x \in \{1,2,\ldots,64\}$ given in Table \ref{tab:ccsr}. ($i$ indices are given vertically, $j$'s are horizontal and the corresponding cell gives $x$ in CCSR)
+    \item There are 2 53 bit registers $a_{11}$ and $a_{12}$ collectively called as $a_{1}$. This can be changed in code by varying \verb!r_1_num!
     \item 12 bit register $a_{2}$
     \item 3 bit register $a_{3}$
 \begin{table}[h!]
@@ -142,9 +142,9 @@ To obtain these plots, we took a random key and 100 random initialising vectors 
 \begin{itemize}
     \item Figure \ref{fig:1} shows the variation of Linear Complexity (LC) for each of the 100 runs. The minimum LC is 1019 and the maximum is 1024. The LC is very high, for every run as it should be for a random keystream.
     \item Figure \ref{fig:2} is a histogram of LC values. We see that higher LC values are more frequent than lower values. This shows that our cipher is achieving the optimal LC for large number of run ($\sim 40\%$)
-    \item In Figure \ref{fig:3}, a random sample from the 100 runs (run 60) was taken and the LC variation with it's length was plotted. It is clear that for every length of keystreams (<=1024), the achieved LC is very close to that length.
+    \item In Figure \ref{fig:3}, a random sample from the 100 runs (run 60) was taken and the LC variation across it's length was plotted. It is clear that for every length of keystreams ($<=1024$), the achieved LC is very close to that length.
 \end{itemize}
-It is clear from above that the reduced size cipher generated satisfactory keystreams.
+It is clear from above that the reduced size cipher generated reasonable keystreams.
 \clearpage
 \section{SageMath Code}
 \begin{minted}[frame=single]{python}
@@ -330,10 +330,8 @@ plt.savefig('3.pdf')
 % \section{References}
 % \href{https://en.wikipedia.org/wiki/Band-stop_filter}{Notch Filter - Wikipedia}\\
 % \href{https://www2.humusoft.cz/www/papers/tcp09/035_hanta.pdf}{Rational Approximation of Time Delay - Hanta}
-\section{References}
-Matthew Robshaw (auth.), \textit{New Stream Cipher Designs The eSTREAM Finalists}, Lecture Notes in Computer Science\\
-\href{http://www.ecrypt.eu.org/stream/p3ciphers/mosquito/mosquito_p3.pdf}{Daemen, J., Kitsos, P.: The self-synchonizing stream cipher MOUSTIQUE (2006)}\\
-Andreas Klein (auth.), \textit{Stream Ciphers}, Springer\\
-\href{https://stackoverflow.com/a/37873955/13746066}{\texttt{bisect.bisect\_left} for efficient mapping of CCSR}\\
-\href{https://stackoverflow.com/a/29303791/13746066}{Sage Immutable Vector Error}
+\bibliographystyle{plainurl}
+\nocite{*}
+\bibliography{references}
+\addcontentsline{toc}{section}{References}
 \end{document}

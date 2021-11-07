@@ -30,7 +30,7 @@ For a self-synchronizing stream encryption, the keystream bit $z(i)$ is same as 
 \end{equation}
 For this assignment as our interest is in generating keystream bit, we focus our analysis on the cipher function.
 \section{The Reduced Moustique Cipher Function}
-In our reduced version of this cipher function, we take the key and IV size as 48 bits (96 in original paper) and we use 4 register sizes of 64, 53 (2 registers), 12 and 3 bits using up a total 185 states compared to 408 in original.
+In our reduced version of this cipher function, we take the key and IV size as 48 bits (96 in original paper) and we use 4 register sizes of 64, 53 (2 registers), 12 and 3 bits using up a total 185 states\footnote{All states are initialised randomly} compared to 408 in original.
 
 \begin{itemize}
     \item The 64 bit register called as conditional complementing shift register (CCSR) is the only 1-indexed register, organized bit differently. CCSR(x) is written as $q{(i,j)}$ and the pair of $i,j$ uniquely maps to $x \in \{1,2,\ldots,64\}$ given in Table \ref{tab:ccsr}. ($i$ indices are given vertically, $j$'s are horizontal and the corresponding cell gives $x$ in CCSR)
@@ -51,7 +51,7 @@ In our reduced version of this cipher function, we take the key and IV size as 4
 \multicolumn{1}{|l|}{$\ldots$} & \multicolumn{1}{l|}{42} & \multicolumn{1}{l|}{43} & \multicolumn{1}{l|}{44} & \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{46} & \multicolumn{1}{l|}{47} & \multicolumn{1}{l|}{48} & 0 \\ \cline{1-8}
 41                             & 42                      & 43                      & 44                      & 45                      & 46                      & 47                      & 48                      &  
 \end{tabular}
-\caption{CCSR at higher bits}
+\caption{CCSR at higher bits (lower bits have $i = 0, j = x$)}
 \label{tab:ccsr}
 \end{table}
 \end{itemize}
@@ -101,11 +101,11 @@ Index $(=(j-i)\ \% \ 6)$ & Function & $v$             & $w$     \\\hline
     \end{equation}
     \item[$a_{2}$ Update]
     \begin{equation}
-            \text{for } i \in \{0,1,\ldots,12\} \quad a_{2}(i) = g_1(a_{12}(4i), a_{12}(4i+3), a_{12}(4i+1), a_{12}(4i+2))
+            \text{for } i \in \{0,1,\ldots,11\} \quad a_{2}(i) = g_1(a_{12}(4i), a_{12}(4i+3), a_{12}(4i+1), a_{12}(4i+2))
     \end{equation}
     \item[$a_{3}$ Update]
     \begin{equation}
-            \text{for } i \in \{0,1,\ldots,3\} \quad a_{3}(i) = g_0(a_{2}(4i), a_{2}(4i+1), a_{2}(4i+2), a_{2}(4i+3))
+            \text{for } i \in \{0,1,2\} \quad a_{3}(i) = g_0(a_{2}(4i), a_{2}(4i+1), a_{2}(4i+2), a_{2}(4i+3))
     \end{equation}
 \end{description}
 \subsection{Output map}

@@ -8,4 +8,4 @@ Team Members: [Param Rathour](http://paramrathour.github.io/), [Prathamesh Dhake
 - [Code (.py)](Stream%20Cipher%20Generation.py)
 
 ## Stream Cipher
-![Stream Cipher](stream-cipher.png)
+![Stream Cipher](stream-cipher.svg)
